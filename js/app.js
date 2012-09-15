@@ -17,16 +17,33 @@ function ComicController ($scope, $routeParams, Comics) {
   $scope.previousId = Math.max(comicId - 1, 0)
   $scope.nextId = comicId + 1
 
-  Comics.query(function () {
+  Comics.query(comicId, function (comic) {
+    $scope.comic = comic
 
   })
 }
 
 
-app.factory("Comics", function ($http, $resource) {
-  var Comics = $resource("http://dynamic.xkcd.com/api-0/jsonp/comic/1",
-    {callback:'JSON_CALLBACK'},
-    {query:{method:'JSONP'}})
+var jsonp = (function () {
+  var next = 0
+  return {
+    getHandler: function (cb) {
+      var id = "jsonpHandlers" + next
+      window[id] = function () {
+        cb.apply(null, arguments)
+        delete window[id]
+      }
+      next++
+      return id
+    }
+  }
+}())
 
-  return Comics
+
+app.factory("Comics", function ($http, $resource) {
+  return {
+    query: function (comicId, cb) {
+      $http.jsonp("http://dynamic.xkcd.com/api-0/jsonp/comic/" + comicId + "?callback=" + jsonp.getHandler(cb))
+    }
+  }
 })
