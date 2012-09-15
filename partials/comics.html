@@ -1,0 +1,9 @@
+<div ng-controller="ComicsController" class="comic">
+  <!-- <ng-include src="'/partials/login.html'"></ng-include> -->
+  <a href="#/comic/{{previousId}}">&lt;</a>
+  <a href="#/comic/{{nextId}}">&gt;</a>
+
+  <div ng-repeat="comicId in list">
+    <ng-include src="'./partials/comic.html'"></ng-include>
+  </div>
+</div>
