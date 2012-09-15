@@ -1,8 +1,76 @@
 @import "nib"
 
-global-reset()
-reset-html5()
+html {
+  background: black
+  color: white
+}
 
-body {
+html, body, .comics, .comicList, .comic {
+  height: 100%
+  margin: 0
+  overflow: hidden
+  padding: 0
+  width: 100%
+}
 
+nav {
+  position: absolute
+  left: 50%
+  z-index: 100
+
+  a {
+    color: white
+    font-size: 20px
+    text-decoration: none
+  }
+}
+
+.comics {
+  perspective: 1000px
+}
+
+.comicContainer {
+  height: 80%
+  position: absolute
+  -moz-transition: -moz-transform 600ms ease, z-index 600ms ease
+  -webkit-transition: -webkit-transform 600ms ease, z-index 600ms ease
+  transition: transform 600ms ease, z-index 600ms ease
+  top: 0
+  width: 30%
+
+  &.offset_-2 {
+    left: 1%
+    transform: rotateY(100deg)
+    z-index: 5
+  }
+  &.offset_-1 {
+    left: 15%
+    transform: rotateY(60deg)
+    z-index: 6
+  }
+  &.offset_0 {
+    left: 50%
+    margin-left: -20% * 0.7
+    z-index: 7
+  }
+  &.offset_1 {
+    right: 15%
+    transform: rotateY(-60deg)
+    z-index: 6
+  }
+  &.offset_2 {
+    right: 1%
+    transform: rotateY(-100deg)
+    z-index: 5
+  }
+}
+
+.comic {
+  text-align: center
+
+  img {
+    max-height: 100%
+    max-width: 100%
+
+  }
 }

@@ -1,9 +1,8 @@
-<div ng-controller="ComicsController" class="comic">
-  <!-- <ng-include src="'/partials/login.html'"></ng-include> -->
-  <a href="#/comic/{{previousId}}">&lt;</a>
-  <a href="#/comic/{{nextId}}">&gt;</a>
+<section ng-controller="ComicsController" class="comics">
+  <nav>
+    <a href="#/comic/{{previousId}}">&lt;</a>
+    <a href="#/comic/{{nextId}}">&gt;</a>
+  </nav>
 
-  <div ng-repeat="comicId in list">
-    <ng-include src="'./partials/comic.html'"></ng-include>
-  </div>
-</div>
+  <div class="comicContainer" ng-repeat="(comicId, offset) in comics" ng-include="'./partials/comic.html'" ng-class="'offset_' + offset"></div>
+</section>

@@ -1,121 +1,92 @@
+html {
+  background: #000;
+  color: #fff;
+}
 html,
 body,
-div,
-span,
-applet,
-object,
-iframe,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-blockquote,
-pre,
-a,
-abbr,
-acronym,
-address,
-big,
-cite,
-code,
-del,
-dfn,
-em,
-img,
-ins,
-kbd,
-q,
-s,
-samp,
-small,
-strike,
-strong,
-sub,
-sup,
-tt,
-var,
-dl,
-dt,
-dd,
-ol,
-ul,
-li,
-fieldset,
-form,
-label,
-legend,
-table,
-caption,
-tbody,
-tfoot,
-thead,
-tr,
-th,
-td {
+.comics,
+.comicList,
+.comic {
+  height: 100%;
   margin: 0;
+  overflow: hidden;
   padding: 0;
-  border: 0;
-  outline: 0;
-  font-weight: inherit;
-  font-style: inherit;
-  font-family: inherit;
-  font-size: 100%;
-  vertical-align: baseline;
+  width: 100%;
 }
-body {
-  line-height: 1;
-  color: #000;
-  background: #fff;
+nav {
+  position: absolute;
+  left: 50%;
+  z-index: 100;
 }
-ol,
-ul {
-  list-style: none;
+nav a {
+  color: #fff;
+  font-size: 20px;
+  text-decoration: none;
 }
-table {
-  border-collapse: separate;
-  border-spacing: 0;
-  vertical-align: middle;
+.comics {
+  -webkit-perspective: 1000px;
+  -moz-perspective: 1000px;
+  -ms-perspective: 1000px;
+  perspective: 1000px;
 }
-caption,
-th,
-td {
-  text-align: left;
-  font-weight: normal;
-  vertical-align: middle;
+.comicContainer {
+  height: 80%;
+  position: absolute;
+  -moz-transition: -moz-transform 600ms ease, z-index 600ms ease;
+  -webkit-transition: -webkit-transform 600ms ease, z-index 600ms ease;
+  -webkit-transition: -webkit-transform 600ms ease, z-index 600ms ease;
+  -moz-transition: -moz-transform 600ms ease, z-index 600ms ease;
+  -o-transition: -o-transform 600ms ease, z-index 600ms ease;
+  -ms-transition: -ms-transform 600ms ease, z-index 600ms ease;
+  transition: transform 600ms ease, z-index 600ms ease;
+  top: 0;
+  width: 30%;
 }
-a img {
-  border: none;
+.comicContainer.offset_-2 {
+  left: 1%;
+  -webkit-transform: rotateY(100deg);
+  -moz-transform: rotateY(100deg);
+  -o-transform: rotateY(100deg);
+  -ms-transform: rotateY(100deg);
+  transform: rotateY(100deg);
+  z-index: 5;
 }
-article,
-aside,
-canvas,
-details,
-figcaption,
-figure,
-footer,
-header,
-hgroup,
-menu,
-nav,
-section,
-summary {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  outline: 0;
-  display: block;
+.comicContainer.offset_-1 {
+  left: 15%;
+  -webkit-transform: rotateY(60deg);
+  -moz-transform: rotateY(60deg);
+  -o-transform: rotateY(60deg);
+  -ms-transform: rotateY(60deg);
+  transform: rotateY(60deg);
+  z-index: 6;
 }
-audio,
-canvas,
-video {
-  display: inline-block;
-  *display: inline;
-  *zoom: 1;
+.comicContainer.offset_0 {
+  left: 50%;
+  margin-left: -14%;
+  z-index: 7;
 }
-audio:not([controls]),
-[hidden] {
-  display: none;
+.comicContainer.offset_1 {
+  right: 15%;
+  -webkit-transform: rotateY(-60deg);
+  -moz-transform: rotateY(-60deg);
+  -o-transform: rotateY(-60deg);
+  -ms-transform: rotateY(-60deg);
+  transform: rotateY(-60deg);
+  z-index: 6;
+}
+.comicContainer.offset_2 {
+  right: 1%;
+  -webkit-transform: rotateY(-100deg);
+  -moz-transform: rotateY(-100deg);
+  -o-transform: rotateY(-100deg);
+  -ms-transform: rotateY(-100deg);
+  transform: rotateY(-100deg);
+  z-index: 5;
+}
+.comic {
+  text-align: center;
+}
+.comic img {
+  max-height: 100%;
+  max-width: 100%;
 }

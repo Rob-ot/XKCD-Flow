@@ -10,12 +10,17 @@ var app = angular.module('app', ['ngResource'], function($routeProvider) {
 })
 
 function ComicsController ($scope, $routeParams) {
+  var adjustments = [-2, -1, 0, 1, 2]
+
   var comicId = parseInt($routeParams.comicId, 10)
+
   $scope.previousId = Math.max(comicId - 1, 0)
   $scope.nextId = comicId + 1
 
-  $scope.list = [-2, -1, 0, 1, 2].map(function (adjustment) {
-    return comicId + adjustment
+  $scope.comics = {}
+
+  adjustments.forEach(function (adjustment) {
+    $scope.comics[comicId + adjustment] = adjustment
   })
 }
 
