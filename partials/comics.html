@@ -1,8 +1,8 @@
 <section ng-controller="ComicsController" class="comics">
   <nav>
-    <a href="#/comic/{{previousId}}">&lt;</a>
-    <a href="#/comic/{{nextId}}">&gt;</a>
+    <a href="#/comic/{{nextId}}">&lt;</a>
+    <a href="#/comic/{{previousId}}">&gt;</a>
   </nav>
 
-  <div class="comicContainer" ng-repeat="(comicId, offset) in comics" ng-include="'./partials/comic.html'" ng-class="'offset_' + offset"></div>
+  <div class="comicContainer" ng-repeat="comic in comics" ng-include="'./partials/comic.html'" ng-class="'offset_' + $index"></div>
 </section>

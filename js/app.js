@@ -9,25 +9,28 @@ var app = angular.module('app', ['ngResource'], function($routeProvider) {
   })
 })
 
-function ComicsController ($scope, $routeParams) {
-  var adjustments = [-2, -1, 0, 1, 2]
+
+var masterComics = []
+
+
+function ComicsController ($scope, $routeParams, Comics) {
+  var adjustment = 2
 
   var comicId = parseInt($routeParams.comicId, 10)
 
   $scope.previousId = Math.max(comicId - 1, 0)
   $scope.nextId = comicId + 1
 
-  $scope.comics = {}
+  $scope.comics = masterComics
 
-  adjustments.forEach(function (adjustment) {
-    $scope.comics[comicId + adjustment] = adjustment
-  })
-}
+  var comics = Comics.getRange(comicId - adjustment, comicId + adjustment)
+  var comicsLength = comics.length
 
-function ComicController ($scope, $routeParams, Comics) {
-  Comics.query($scope.comicId, function (comic) {
-    $scope.comic = comic
-  })
+  // replace the contents of masterComics with the contents of comics
+  while (masterComics.pop()) {}
+  while (masterComics.push(comics.pop()) < comicsLength) {}
+
+  console.log($scope.comics)
 }
 
 
@@ -48,11 +51,27 @@ var jsonp = (function () {
 app.factory("Comics", function ($http, $resource) {
   var cache = {}
   return {
+    // will return (empty if needed) objects now, and update them by ref later
+    getRange: function (low, high) {
+      var results = []
+      for (var i = low; i <= high; i++) {
+        if (!cache[i]) {
+          cache[i] = {}
+          this.query(i, (function (cachedComicObject) {
+            return function (comic) {
+              // update existing object, dont make a new one it needs to be by ref
+              _.extend(cachedComicObject, comic)
+            }
+          }(cache[i])))
+        }
+        results.push(cache[i])
+      }
+      return results
+    },
+
     query: function (comicId, cb) {
-      if (cache[comicId]) return cb(cache[comicId])
-      console.log("fetch", comicId)
+      // xkcds api doesn't like fancy characters which the regular jsonp uses, so use this
       $http.jsonp("http://dynamic.xkcd.com/api-0/jsonp/comic/" + comicId + "?callback=" + jsonp(function (comic) {
-        cache[comicId] = comic
         cb(comic)
       }))
     }
